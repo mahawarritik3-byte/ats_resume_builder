@@ -1,0 +1,13 @@
+function Textarea({ placeholder, value, onChange }) {
+  return (
+    <textarea
+      className="w-full border border-gray-300 p-2 rounded mb-3 outline-none focus:border-blue-500"
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      rows="3"
+    />
+  );
+}
+
+export default Textarea;

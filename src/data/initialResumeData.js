@@ -41,7 +41,12 @@ const initialResumeData = {
     },
   ],
 
-  skills: [""],
+  skills: [
+  {
+    groupName: "",
+    skills: "",
+  },
+],
 
   projects: [
     {

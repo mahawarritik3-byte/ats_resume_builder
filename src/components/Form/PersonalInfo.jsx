@@ -123,7 +123,7 @@ function PersonalInfo({ personalInfo, handlePersonalChange }) {
             </select>
 
             <Input
-              placeholder="Username only e.g. ritik_mahawar"
+              placeholder="Username only e.g. ritikmahawar011"
               value={profile.username}
               onChange={(e) =>
                 handleCodingProfileChange(index, "username", e.target.value)

@@ -1,34 +1,52 @@
-import AddButton from "../UI/AddButton";
-import SectionTitle from "../UI/SectionTitle";
-
-function Skills({ skills, handleSkillChange, addSkill, removeSkill }) {
+function Skills({ skills, handleSkillGroupChange, addSkillGroup, removeSkillGroup }) {
   return (
-    <>
-      <SectionTitle title="Skills" />
+    <div>
+      <div className="skills-header">
+        <h3>Skills</h3>
 
-      {skills.map((skill, index) => (
-        <div key={index} className="flex gap-2 mb-3">
-          <input
-            className="w-full border border-gray-300 p-2 rounded outline-none focus:border-blue-500"
-            placeholder="Skill e.g. React.js"
-            value={skill}
-            onChange={(e) => handleSkillChange(index, e.target.value)}
-          />
+        <button type="button" onClick={addSkillGroup} className="add-group-btn">
+          + Add Group
+        </button>
+      </div>
 
-          {skills.length > 1 && (
+      {skills.map((skillGroup, index) => (
+        <div className="skill-group-card" key={index}>
+          <div className="skill-group-top">
+            <div className="skill-input-box">
+              <label>Group Name</label>
+              <input
+                type="text"
+                placeholder="e.g. Programming"
+                value={skillGroup.groupName}
+                onChange={(e) =>
+                  handleSkillGroupChange(index, "groupName", e.target.value)
+                }
+              />
+            </div>
+
             <button
               type="button"
-              className="bg-red-500 text-white px-3 rounded"
-              onClick={() => removeSkill(index)}
+              onClick={() => removeSkillGroup(index)}
+              className="remove-group-btn"
             >
-              X
+              Remove
             </button>
-          )}
+          </div>
+
+          <div className="skill-input-box">
+            <label>Skills (comma-separated)</label>
+            <input
+              type="text"
+              placeholder="JavaScript, Node.js, React"
+              value={skillGroup.skills}
+              onChange={(e) =>
+                handleSkillGroupChange(index, "skills", e.target.value)
+              }
+            />
+          </div>
         </div>
       ))}
-
-      <AddButton text="+ Add More Skill" onClick={addSkill} />
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import html2pdf from "html2pdf.js";
+// import { toJpeg } from "html-to-image";
+// import { jsPDF } from "jspdf";
 
 import initialResumeData from "../data/initialResumeData";
 
@@ -27,8 +28,9 @@ function Builder() {
   const [resumeData, setResumeData] = useState(initialResumeData);
   const [activeStep, setActiveStep] = useState(0);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
-  const previewRef = useRef(null);
+  const pdfRef = useRef(null);
 
   const progress = Math.round(((activeStep + 1) / steps.length) * 100);
 
@@ -68,53 +70,303 @@ function Builder() {
     });
   };
 
-  const handleSkillChange = (index, value) => {
-    const updatedSkills = [...resumeData.skills];
-    updatedSkills[index] = value;
+const handleSkillGroupChange = (index, field, value) => {
+  const updatedSkills = [...resumeData.skills];
 
-    setResumeData({
-      ...resumeData,
-      skills: updatedSkills,
-    });
+  updatedSkills[index] = {
+    ...updatedSkills[index],
+    [field]: value,
   };
 
-  const addSkill = () => {
-    setResumeData({
-      ...resumeData,
-      skills: [...resumeData.skills, ""],
-    });
-  };
+  setResumeData({
+    ...resumeData,
+    skills: updatedSkills,
+  });
+};
 
-  const removeSkill = (index) => {
-    const updatedSkills = resumeData.skills.filter((_, i) => i !== index);
-
-    setResumeData({
-      ...resumeData,
-      skills: updatedSkills,
-    });
-  };
-
-  const downloadPDF = () => {
-    const element = previewRef.current;
-
-    const options = {
-      margin: 0.3,
-      filename: `${resumeData.personalInfo.name || "resume"}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
+const addSkillGroup = () => {
+  setResumeData({
+    ...resumeData,
+    skills: [
+      ...resumeData.skills,
+      {
+        groupName: "",
+        skills: "",
       },
-      jsPDF: {
-        unit: "in",
-        format: "a4",
-        orientation: "portrait",
-      },
-    };
+    ],
+  });
+};
 
-    html2pdf().set(options).from(element).save();
+const removeSkillGroup = (index) => {
+  const updatedSkills = resumeData.skills.filter((_, i) => i !== index);
+
+  setResumeData({
+    ...resumeData,
+    skills:
+      updatedSkills.length > 0
+        ? updatedSkills
+        : [
+            {
+              groupName: "",
+              skills: "",
+            },
+          ],
+  });
+};
+
+  const cleanUnsupportedColors = (rootElement) => {
+    const elements = [rootElement, ...rootElement.querySelectorAll("*")];
+
+    elements.forEach((el) => {
+      const style = window.getComputedStyle(el);
+
+      const color = style.color;
+      const backgroundColor = style.backgroundColor;
+      const borderColor = style.borderColor;
+
+      if (color.includes("oklch")) {
+        el.style.color = "#111111";
+      }
+
+      if (backgroundColor.includes("oklch")) {
+        el.style.backgroundColor = "#ffffff";
+      }
+
+      if (borderColor.includes("oklch")) {
+        el.style.borderColor = "#d1d5db";
+      }
+
+      el.style.opacity = "1";
+      el.style.filter = "none";
+      el.style.textShadow = "none";
+    });
   };
 
+//   const downloadPDF = async () => {
+//   if (isDownloading) return;
+
+//   const element = pdfRef.current;
+
+//   if (!element) {
+//     alert("Resume preview not found");
+//     return;
+//   }
+
+//   try {
+//     setIsDownloading(true);
+
+//     const fileName =
+//       resumeData.personalInfo.name?.trim().replaceAll(" ", "_") || "resume";
+
+//     const dataUrl = await toJpeg(element, {
+//       quality: 1,
+//       pixelRatio: 2,
+//       backgroundColor: "#ffffff",
+//       width: 794,
+//       height: 1123,
+//       style: {
+//         width: "794px",
+//         minHeight: "1123px",
+//         background: "#ffffff",
+//         color: "#111111",
+//       },
+//       filter: (node) => {
+//         if (node.tagName === "SCRIPT") return false;
+//         return true;
+//       },
+//     });
+
+//     const pdf = new jsPDF({
+//       orientation: "portrait",
+//       unit: "px",
+//       format: [794, 1123],
+//     });
+
+//     pdf.addImage(dataUrl, "JPEG", 0, 0, 794, 1123);
+//     pdf.save(`${fileName}.pdf`);
+//   } catch (error) {
+//     console.error("PDF ERROR:", error);
+//     alert(error?.message || "PDF download failed. Check console.");
+//   } finally {
+//     setIsDownloading(false);
+//   }
+// };
+// download pdf ecnding>>>>...
+const downloadPDF = () => {
+  const element = pdfRef.current;
+
+  if (!element) {
+    alert("Resume preview not found");
+    return;
+  }
+
+  const printWindow = window.open("", "_blank");
+
+  if (!printWindow) {
+    alert("Please allow popups to download the resume.");
+    return;
+  }
+
+  const resumeHTML = element.innerHTML;
+
+  printWindow.document.open();
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>${resumeData.personalInfo.name || "resume"}</title>
+
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #111111;
+            font-family: Arial, Helvetica, sans-serif;
+          }
+
+          @page {
+            size: A4;
+            margin: 0;
+          }
+
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+
+          .resume-preview {
+            width: 210mm;
+            min-height: 297mm;
+            background: #ffffff;
+            color: #111111;
+            padding: 12mm 14mm;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.28;
+          }
+
+          .resume-preview * {
+            color-scheme: light;
+            opacity: 1;
+            filter: none;
+            text-shadow: none;
+            box-shadow: none;
+          }
+
+          .resume-header {
+            text-align: center;
+            margin-bottom: 10px;
+          }
+
+          .resume-preview h1 {
+            color: #111111;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+          }
+
+          .resume-contact {
+            color: #111111;
+            font-size: 11px;
+            margin: 0;
+          }
+
+          .resume-preview h2 {
+            color: #111111;
+            font-size: 13px;
+            font-weight: 800;
+            margin: 12px 0 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #111111;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+          }
+
+          .resume-preview h3 {
+            color: #111111;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 5px 0 2px;
+          }
+
+          .resume-preview p,
+          .resume-preview li,
+          .resume-preview span,
+          .resume-preview div {
+            color: #111111;
+            font-size: 11px;
+          }
+
+          .resume-preview p {
+            margin: 2px 0;
+          }
+
+          .resume-preview ul {
+            margin: 3px 0 6px 16px;
+            padding: 0;
+          }
+
+          .resume-preview li {
+            margin-bottom: 2px;
+          }
+
+          .resume-preview a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-size: 11px;
+          }
+
+          .resume-preview section {
+            margin-bottom: 6px;
+          }
+
+          .resume-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 5px;
+          }
+
+          .resume-right {
+            text-align: right;
+            min-width: 140px;
+          }
+
+          @media print {
+            body {
+              margin: 0;
+            }
+
+            .resume-preview {
+              page-break-inside: avoid;
+            }
+          }
+        </style>
+      </head>
+
+      <body>
+        ${resumeHTML}
+
+        <script>
+          window.onload = function () {
+            setTimeout(function () {
+              window.print();
+            }, 300);
+          };
+        </script>
+      </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+};
   const renderStep = () => {
     switch (activeStep) {
       case 0:
@@ -146,14 +398,15 @@ function Builder() {
         );
 
       case 3:
-        return (
-          <Skills
-            skills={resumeData.skills}
-            handleSkillChange={handleSkillChange}
-            addSkill={addSkill}
-            removeSkill={removeSkill}
-          />
-        );
+      case 3:
+  return (
+    <Skills
+      skills={resumeData.skills}
+      handleSkillGroupChange={handleSkillGroupChange}
+      addSkillGroup={addSkillGroup}
+      removeSkillGroup={removeSkillGroup}
+    />
+  );
 
       case 4:
         return (
@@ -204,8 +457,12 @@ function Builder() {
             👁 Live Preview
           </button>
 
-          <button onClick={downloadPDF} className="download-small">
-            Download PDF
+          <button
+            onClick={downloadPDF}
+            className="download-small"
+            disabled={isDownloading}
+          >
+            {isDownloading ? "Downloading..." : "Download PDF"}
           </button>
         </div>
       </nav>
@@ -281,8 +538,12 @@ function Builder() {
                   Next Section
                 </button>
               ) : (
-                <button onClick={downloadPDF} className="primary-btn">
-                  Download Resume PDF
+                <button
+                  onClick={downloadPDF}
+                  className="primary-btn"
+                  disabled={isDownloading}
+                >
+                  {isDownloading ? "Downloading..." : "Download Resume PDF"}
                 </button>
               )}
             </div>
@@ -290,8 +551,10 @@ function Builder() {
         </div>
 
         {/* Hidden preview for PDF download */}
-        <div className="hidden-preview">
-          <ResumePreview resumeData={resumeData} previewRef={previewRef} />
+        <div className="pdf-hidden-preview">
+          <div ref={pdfRef} className="pdf-page">
+            <ResumePreview resumeData={resumeData} />
+          </div>
         </div>
 
         {/* Live Preview Modal */}
@@ -305,10 +568,14 @@ function Builder() {
                 </div>
 
                 <div className="preview-modal-actions">
-                  <button onClick={downloadPDF}>Download PDF</button>
+                  <button onClick={downloadPDF} disabled={isDownloading}>
+                    {isDownloading ? "Downloading..." : "Download PDF"}
+                  </button>
+
                   <button
                     className="close-preview-btn"
                     onClick={() => setShowPreviewModal(false)}
+                    disabled={isDownloading}
                   >
                     ✕
                   </button>
@@ -316,7 +583,7 @@ function Builder() {
               </div>
 
               <div className="preview-modal-body">
-                <ResumePreview resumeData={resumeData} previewRef={previewRef} />
+                <ResumePreview resumeData={resumeData} />
               </div>
             </div>
           </div>

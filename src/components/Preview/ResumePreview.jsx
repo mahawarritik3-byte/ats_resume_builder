@@ -1,9 +1,11 @@
-import PreviewSection from "./PreviewSection";
-
 function getGithubUrl(username) {
   if (!username) return "";
 
   let cleanUsername = username.trim();
+
+  if (cleanUsername.startsWith("http://") || cleanUsername.startsWith("https://")) {
+    return cleanUsername;
+  }
 
   if (cleanUsername.includes("github.com/")) {
     cleanUsername = cleanUsername.split("github.com/")[1];
@@ -11,7 +13,7 @@ function getGithubUrl(username) {
 
   cleanUsername = cleanUsername.replace("@", "").replaceAll("/", "");
 
-  return `https://github.com/${cleanUsername}`;
+  return cleanUsername ? `https://github.com/${cleanUsername}` : "";
 }
 
 function getCodingProfileUrl(platform, username) {
@@ -39,198 +41,361 @@ function getCodingProfileUrl(platform, username) {
   return profileLinks[platform] || "";
 }
 
-function ResumePreview({ resumeData, previewRef }) {
-  const githubUrl = getGithubUrl(resumeData.personalInfo.githubUsername);
+function splitPoints(text) {
+  if (!text) return [];
 
-  const codingProfiles = resumeData.personalInfo.codingProfiles || [];
+  return text
+    .split("\n")
+    .map((point) => point.trim())
+    .filter(Boolean);
+}
+
+function isFilled(value) {
+  return value !== undefined && value !== null && value.toString().trim() !== "";
+}
+
+function ResumePreview({ resumeData = {} }) {
+  const personalInfo = resumeData.personalInfo || {};
+  const education = resumeData.education || [];
+  const experience = resumeData.experience || [];
+  const skills = resumeData.skills || [];
+  const projects = resumeData.projects || [];
+  const certifications = resumeData.certifications || [];
+  const achievements = resumeData.achievements || [];
+
+  const githubUrl = getGithubUrl(personalInfo.githubUsername);
+  const codingProfiles = personalInfo.codingProfiles || [];
+
+  const filledCodingProfiles = codingProfiles.filter(
+    (profile) => isFilled(profile.platform) && isFilled(profile.username)
+  );
+
+  const hasPersonalInfo =
+    isFilled(personalInfo.name) ||
+    isFilled(personalInfo.email) ||
+    isFilled(personalInfo.phone) ||
+    isFilled(personalInfo.location) ||
+    isFilled(personalInfo.linkedin) ||
+    isFilled(personalInfo.githubUsername) ||
+    isFilled(personalInfo.portfolio) ||
+    filledCodingProfiles.length > 0;
+
+  const filledEducation = education.filter(
+    (edu) =>
+      isFilled(edu.institution) ||
+      isFilled(edu.degree) ||
+      isFilled(edu.branch) ||
+      isFilled(edu.location) ||
+      isFilled(edu.startYear) ||
+      isFilled(edu.endYear) ||
+      isFilled(edu.score)
+  );
+
+  const filledExperience = experience.filter(
+    (exp) =>
+      isFilled(exp.company) ||
+      isFilled(exp.role) ||
+      isFilled(exp.type) ||
+      isFilled(exp.location) ||
+      isFilled(exp.startDate) ||
+      isFilled(exp.endDate) ||
+      isFilled(exp.description)
+  );
+
+  const filledSkills = skills.filter((skillGroup) => {
+    if (typeof skillGroup === "string") {
+      return isFilled(skillGroup);
+    }
+
+    return (
+      skillGroup &&
+      (isFilled(skillGroup.groupName) || isFilled(skillGroup.skills))
+    );
+  });
+
+  const filledProjects = projects.filter(
+    (project) =>
+      isFilled(project.title) ||
+      isFilled(project.techStack) ||
+      isFilled(project.description) ||
+      isFilled(project.github) ||
+      isFilled(project.liveLink)
+  );
+
+  const filledCertifications = certifications.filter(
+    (cert) =>
+      isFilled(cert.name) ||
+      isFilled(cert.organization) ||
+      isFilled(cert.date) ||
+      isFilled(cert.link)
+  );
+
+  const filledAchievements = achievements.filter(
+    (ach) => isFilled(ach.title) || isFilled(ach.description)
+  );
 
   return (
-    <div className="preview-card">
-      <h2 className="text-2xl font-bold mb-6 text-white">Live Resume Preview</h2>
+    <div className="resume-preview">
+      {hasPersonalInfo && (
+        <header className="resume-header">
+          {personalInfo.name && <h1>{personalInfo.name}</h1>}
 
-      <div
-        ref={previewRef}
-        id="resume-preview"
-        className="bg-white text-black p-8 rounded-xl min-h-[900px]"
-      >
-        <div className="text-center border-b border-gray-400 pb-4">
-          <h1 className="text-3xl font-bold">
-            {resumeData.personalInfo.name || "Your Name"}
-          </h1>
+          <p className="resume-contact">
+            {personalInfo.email && <>Email: {personalInfo.email}</>}
+            {personalInfo.phone && <> | Phone: {personalInfo.phone}</>}
+            {personalInfo.location && <> | {personalInfo.location}</>}
 
-          <p className="text-sm mt-2">
-            {resumeData.personalInfo.email}
-            {resumeData.personalInfo.phone &&
-              ` | ${resumeData.personalInfo.phone}`}
-            {resumeData.personalInfo.location &&
-              ` | ${resumeData.personalInfo.location}`}
-          </p>
-
-          <div className="text-sm flex flex-wrap justify-center gap-2 mt-1">
-            {resumeData.personalInfo.linkedin && (
-              <a
-                className="text-blue-700 underline"
-                href={resumeData.personalInfo.linkedin}
-                target="_blank"
-              >
-                LinkedIn
-              </a>
+            {personalInfo.linkedin && (
+              <>
+                {" "}
+                |{" "}
+                <a href={personalInfo.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              </>
             )}
 
             {githubUrl && (
-              <a
-                className="text-blue-700 underline"
-                href={githubUrl}
-                target="_blank"
-              >
-                GitHub
-              </a>
+              <>
+                {" "}
+                |{" "}
+                <a href={githubUrl} target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              </>
             )}
 
-            {resumeData.personalInfo.portfolio && (
-              <a
-                className="text-blue-700 underline"
-                href={resumeData.personalInfo.portfolio}
-                target="_blank"
-              >
-                Portfolio
-              </a>
+            {personalInfo.portfolio && (
+              <>
+                {" "}
+                |{" "}
+                <a href={personalInfo.portfolio} target="_blank" rel="noreferrer">
+                  Portfolio
+                </a>
+              </>
             )}
 
-            {codingProfiles.map((profile, index) => {
-              const url = getCodingProfileUrl(
-                profile.platform,
-                profile.username
-              );
-
+            {filledCodingProfiles.map((profile, index) => {
+              const url = getCodingProfileUrl(profile.platform, profile.username);
               if (!url) return null;
 
               return (
-                <a
-                  key={index}
-                  className="text-blue-700 underline"
-                  href={url}
-                  target="_blank"
-                >
-                  {profile.platform}
-                </a>
+                <span key={index}>
+                  {" "}
+                  |{" "}
+                  <a href={url} target="_blank" rel="noreferrer">
+                    {profile.platform}
+                  </a>
+                </span>
               );
             })}
-          </div>
-        </div>
+          </p>
+        </header>
+      )}
 
-        {resumeData.personalInfo.summary && (
-          <PreviewSection title="Summary">
-            <p>{resumeData.personalInfo.summary}</p>
-          </PreviewSection>
-        )}
+      {personalInfo.summary && (
+        <section>
+          <h2>SUMMARY</h2>
+          <p>{personalInfo.summary}</p>
+        </section>
+      )}
 
-        <PreviewSection title="Education">
-          {resumeData.education.map((edu, index) => (
-            <div key={index} className="mb-3">
-              <h3 className="font-semibold">{edu.institution}</h3>
-              <p>
-                {edu.degree} {edu.branch && `- ${edu.branch}`}
-              </p>
-              <p className="text-sm">
-                {edu.location}
-                {(edu.startYear || edu.endYear) &&
-                  ` | ${edu.startYear} - ${edu.endYear}`}
-              </p>
-              <p className="text-sm">{edu.score}</p>
+      {filledEducation.length > 0 && (
+        <section>
+          <h2>EDUCATION</h2>
+
+          {filledEducation.map((edu, index) => (
+            <div className="resume-row" key={index}>
+              <div>
+                {(edu.degree || edu.branch) && (
+                  <h3>
+                    {edu.degree}
+                    {edu.branch && ` in ${edu.branch}`}
+                  </h3>
+                )}
+
+                {(edu.institution || edu.location) && (
+                  <p>
+                    {edu.institution}
+                    {edu.location && `, ${edu.location}`}
+                  </p>
+                )}
+              </div>
+
+              <div className="resume-right">
+                {(edu.startYear || edu.endYear) && (
+                  <p>
+                    {edu.startYear}
+                    {edu.endYear && ` - ${edu.endYear}`}
+                  </p>
+                )}
+
+                {edu.score && <p>{edu.score}</p>}
+              </div>
             </div>
           ))}
-        </PreviewSection>
+        </section>
+      )}
 
-        <PreviewSection title="Experience">
-          {resumeData.experience.map((exp, index) => (
-            <div key={index} className="mb-3">
-              <h3 className="font-semibold">{exp.company}</h3>
-              <p>
-                {exp.role} {exp.type && `| ${exp.type}`}
+      {filledSkills.length > 0 && (
+        <section>
+          <h2>TECHNICAL SKILLS</h2>
+
+          {filledSkills.map((skillGroup, index) => {
+            if (typeof skillGroup === "string") {
+              return <p key={index}>{skillGroup}</p>;
+            }
+
+            return (
+              <p key={index}>
+                {isFilled(skillGroup.groupName) && (
+                  <strong>{skillGroup.groupName}: </strong>
+                )}
+                {skillGroup.skills}
               </p>
-              <p className="text-sm">
-                {exp.location}
-                {(exp.startDate || exp.endDate) &&
-                  ` | ${exp.startDate} - ${exp.endDate}`}
-              </p>
-              <p>{exp.description}</p>
-            </div>
-          ))}
-        </PreviewSection>
+            );
+          })}
+        </section>
+      )}
 
-        <PreviewSection title="Skills">
-          <p>{resumeData.skills.filter(Boolean).join(", ")}</p>
-        </PreviewSection>
+      {filledExperience.length > 0 && (
+        <section>
+          <h2>WORK EXPERIENCE</h2>
 
-        <PreviewSection title="Projects">
-          {resumeData.projects.map((project, index) => (
-            <div key={index} className="mb-3">
-              <h3 className="font-semibold">{project.title}</h3>
-              <p className="text-sm">{project.techStack}</p>
-              <p>{project.description}</p>
-
-              {project.github && (
-                <a
-                  className="text-sm text-blue-700 underline block"
-                  href={project.github}
-                  target="_blank"
-                >
-                  GitHub
-                </a>
+          {filledExperience.map((exp, index) => (
+            <div key={index} className="resume-item">
+              {(exp.role || exp.company || exp.type) && (
+                <h3>
+                  {exp.role}
+                  {exp.company && ` - ${exp.company}`}
+                  {exp.type && ` | ${exp.type}`}
+                </h3>
               )}
 
-              {project.liveLink && (
-                <a
-                  className="text-sm text-blue-700 underline block"
-                  href={project.liveLink}
-                  target="_blank"
-                >
-                  Live Demo
-                </a>
+              {(exp.location || exp.startDate || exp.endDate) && (
+                <p>
+                  {exp.location}
+                  {(exp.startDate || exp.endDate) &&
+                    ` | ${exp.startDate}${exp.endDate ? ` - ${exp.endDate}` : ""}`}
+                </p>
+              )}
+
+              {splitPoints(exp.description).length > 0 && (
+                <ul>
+                  {splitPoints(exp.description).map((point, i) => (
+                    <li key={i}>{point}</li>
+                  ))}
+                </ul>
               )}
             </div>
           ))}
-        </PreviewSection>
+        </section>
+      )}
 
-        <PreviewSection title="Certifications">
-          {resumeData.certifications.map((cert, index) => (
-            <div key={index} className="mb-2">
-              <p>
-                <strong>{cert.name}</strong>
+      {filledProjects.length > 0 && (
+        <section>
+          <h2>PROJECTS</h2>
+
+          {filledProjects.map((project, index) => (
+            <div key={index} className="resume-item">
+              {(project.title || project.techStack) && (
+                <h3>
+                  {project.title}
+                  {project.techStack && ` | ${project.techStack}`}
+                </h3>
+              )}
+
+              {splitPoints(project.description).length > 0 && (
+                <ul>
+                  {splitPoints(project.description).map((point, i) => (
+                    <li key={i}>{point}</li>
+                  ))}
+                </ul>
+              )}
+
+              {(project.github || project.liveLink) && (
+                <p>
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noreferrer">
+                      GitHub
+                    </a>
+                  )}
+
+                  {project.github && project.liveLink && " | "}
+
+                  {project.liveLink && (
+                    <a href={project.liveLink} target="_blank" rel="noreferrer">
+                      Live Demo
+                    </a>
+                  )}
+                </p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
+
+      {filledCodingProfiles.length > 0 && (
+        <section>
+          <h2>CODING PROFILES</h2>
+          <ul>
+            {filledCodingProfiles.map((profile, index) => {
+              const url = getCodingProfileUrl(profile.platform, profile.username);
+              if (!url) return null;
+
+              return (
+                <li key={index}>
+                  {profile.platform}:{" "}
+                  <a href={url} target="_blank" rel="noreferrer">
+                    Profile Link
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {filledAchievements.length > 0 && (
+        <section>
+          <h2>ACHIEVEMENTS</h2>
+
+          <ul>
+            {filledAchievements.map((ach, index) => (
+              <li key={index}>
+                {ach.title && <strong>{ach.title}</strong>}
+                {ach.title && ach.description && " - "}
+                {ach.description}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {filledCertifications.length > 0 && (
+        <section>
+          <h2>CERTIFICATIONS</h2>
+
+          <ul>
+            {filledCertifications.map((cert, index) => (
+              <li key={index}>
+                {cert.name && <strong>{cert.name}</strong>}
                 {cert.organization && ` - ${cert.organization}`}
-              </p>
-
-              <p className="text-sm">
-                {cert.date}
+                {cert.date && ` | ${cert.date}`}
                 {cert.link && (
                   <>
-                    {" | "}
-                    <a
-                      href={cert.link}
-                      target="_blank"
-                      className="text-blue-700 underline"
-                    >
+                    {" "}
+                    |{" "}
+                    <a href={cert.link} target="_blank" rel="noreferrer">
                       Certificate
                     </a>
                   </>
                 )}
-              </p>
-            </div>
-          ))}
-        </PreviewSection>
-
-        <PreviewSection title="Achievements">
-          {resumeData.achievements.map((ach, index) => (
-            <div key={index} className="mb-2">
-              <p>
-                <strong>{ach.title}</strong>
-              </p>
-              <p>{ach.description}</p>
-            </div>
-          ))}
-        </PreviewSection>
-      </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

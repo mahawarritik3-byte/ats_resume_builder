@@ -1,13 +1,18 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Inter, Arial, Helvetica, sans-serif;
-  background: #f5f5f5;
-  color: #111;
+  background: #f4f6f8;
 }
 
 .app-shell {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #f4f6f8;
   color: #111;
   position: relative;
   overflow-x: hidden;
@@ -26,303 +31,14 @@ body {
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
-  border-bottom: 1px solid #ddd;
-}
-
-.logo-text {
-  font-size: 26px;
-  font-weight: 900;
-  color: #111;
-  background: none;
-}
-
-.nav-actions button {
-  padding: 11px 18px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  background: #ffffff;
-  color: #111;
-  font-weight: 700;
-}
-
-.download-small,
-.bg-blue-600,
-.primary-btn {
-  background: #111 !important;
-  color: white !important;
-  border: none !important;
-}
-
-.builder-container {
-  width: 84%;
-  margin: auto;
-  position: relative;
-  z-index: 5;
-  padding: 35px 0;
-}
-
-.hero-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  align-items: center;
-  margin-bottom: 22px;
-}
-
-.hero-section h1,
-.hero-section h1 span {
-  font-size: 40px;
-  font-weight: 900;
-  color: #111;
-}
-
-.hero-section p,
-.progress-box p,
-.section-heading p {
-  color: #555;
-}
-
-.progress-box strong {
-  color: #111;
-}
-
-.progress-bar {
-  height: 8px;
-  background: #ddd;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 35px;
-}
-
-.progress-bar div {
-  height: 100%;
-  background: #111;
-  border-radius: 999px;
-}
-
-.tab-card,
-.preview-card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: none;
-}
-
-.tabs {
-  display: flex;
-  overflow-x: auto;
-  background: #f1f1f1;
-}
-
-.tabs button {
-  min-width: 190px;
-  padding: 20px 18px;
-  border: none;
-  background: transparent;
-  color: #333;
-  font-weight: 800;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-}
-
-.tabs button:hover {
-  background: #e5e5e5;
-  color: #111;
-}
-
-.tabs .active-tab {
-  color: #111;
-  border-bottom-color: #111;
-  background: #e5e5e5;
-}
-
-.form-panel {
-  padding: 42px;
-}
-
-.section-heading {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-}
-
-.section-icon {
-  height: 70px;
-  width: 70px;
-  display: grid;
-  place-items: center;
-  font-size: 32px;
-  border-radius: 20px;
-  background: #eeeeee;
-  border: 1px solid #ddd;
-}
-
-.section-heading h2 {
-  font-size: 32px;
-  font-weight: 900;
-  color: #111;
-}
-
-input,
-textarea,
-select {
-  background: #ffffff !important;
-  color: #111 !important;
-  border: 1px solid #ccc !important;
-  border-radius: 14px !important;
-  padding: 15px !important;
-  font-weight: 600;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #777 !important;
-}
-
-.secondary-btn {
-  padding: 13px 22px;
-  border-radius: 14px;
-  color: #111;
-  background: #ffffff;
-  border: 1px solid #ccc;
-  font-weight: 800;
-}
-
-.preview-btn {
-  padding: 13px 22px;
-  border-radius: 14px;
-  color: white;
-  background: #111;
-  border: none;
-  font-weight: 900;
-}
-
-.preview-modal-overlay {
-  background: rgba(0, 0, 0, 0.45);
-}
-
-.preview-modal {
-  background: #ffffff;
-  color: #111;
-  border: 1px solid #ddd;
-  box-shadow: none;
-}
-
-.preview-modal-header {
-  border-bottom: 1px solid #ddd;
-}
-
-.preview-modal-header h2 {
-  color: #111;
-}
-
-.preview-modal-header p {
-  color: #555;
-}
-
-.preview-modal-actions button {
-  background: #111;
-  color: white;
-}
-
-.close-preview-btn {
-  background: #eeeeee !important;
-  color: #111 !important;
-}
-/* fjkbndfb djfbdnoi krdnb oiidjfo skfjbndfnbjkdfnkjjjjjjjjjjjjjjjjjjjjjjjjjjj
-jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-dffffffffffffffffffffffffberrrrrrrrrrrrrrrrrrrrrjjjjjjjjjjjjjjjjjjjjjjjjjjjj*/
-
-
-@import "tailwindcss";
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Inter, Arial, Helvetica, sans-serif;
-  background: #f5f5f5;
-  color: #111;
-}
-
-.app-shell {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(0, 255, 200, 0.2), transparent 35%),
-    radial-gradient(circle at top right, rgba(255, 107, 0, 0.2), transparent 30%),
-    linear-gradient(135deg, #08111f, #111827, #1e1b4b);
-  color: white;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(20px);
-  opacity: 0.5;
-  animation: floatOrb 8s ease-in-out infinite alternate;
-}
-
-.orb-one {
-  width: 180px;
-  height: 180px;
-  background: #00f5d4;
-  top: 120px;
-  left: -60px;
-}
-
-.orb-two {
-  width: 220px;
-  height: 220px;
-  background: #ff9f1c;
-  right: -70px;
-  top: 260px;
-  animation-delay: 1.5s;
-}
-
-.orb-three {
-  width: 160px;
-  height: 160px;
-  background: #7c3aed;
-  left: 45%;
-  bottom: 80px;
-  animation-delay: 2.5s;
-}
-
-@keyframes floatOrb {
-  from {
-    transform: translateY(0) scale(1);
-  }
-
-  to {
-    transform: translateY(-35px) scale(1.1);
-  }
-}
-
-.top-navbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  padding: 18px 8%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(8, 15, 31, 0.75);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #ddd;
 }
 
 .logo-text {
   font-size: 26px;
   font-weight: 900;
-  background: linear-gradient(90deg, #00f5d4, #ffd166);
+  background: linear-gradient(90deg, #111827, #4b5563);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -336,16 +52,16 @@ body {
 .nav-actions button {
   padding: 11px 18px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
   font-weight: 700;
   transition: 0.3s;
 }
 
 .nav-actions button:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.15);
+  background: #f3f4f6;
 }
 
 .nav-actions button:disabled,
@@ -355,8 +71,8 @@ button:disabled {
 }
 
 .download-small {
-  background: linear-gradient(90deg, #00f5d4, #ffd166) !important;
-  color: #08111f !important;
+  background: #111827 !important;
+  color: #ffffff !important;
 }
 
 .builder-container {
@@ -379,14 +95,15 @@ button:disabled {
 .hero-section h1 {
   font-size: 40px;
   font-weight: 900;
+  color: #111827;
 }
 
 .hero-section h1 span {
-  color: #00f5d4;
+  color: #111827;
 }
 
 .hero-section p {
-  color: #cbd5e1;
+  color: #4b5563;
   margin-top: 8px;
 }
 
@@ -395,17 +112,17 @@ button:disabled {
 }
 
 .progress-box p {
-  color: #94a3b8;
+  color: #6b7280;
   font-weight: 700;
 }
 
 .progress-box strong {
-  color: #ffd166;
+  color: #111827;
 }
 
 .progress-bar {
   height: 8px;
-  background: rgba(255, 255, 255, 0.12);
+  background: #e5e7eb;
   border-radius: 999px;
   overflow: hidden;
   margin-bottom: 35px;
@@ -413,26 +130,26 @@ button:disabled {
 
 .progress-bar div {
   height: 100%;
-  background: linear-gradient(90deg, #00f5d4, #ffd166, #ff6b35);
+  background: #111827;
   border-radius: 999px;
   transition: width 0.5s ease;
 }
 
 .tab-card,
 .preview-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 24px;
   overflow: hidden;
   backdrop-filter: blur(18px);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   animation: fadeUp 0.7s ease;
 }
 
 .tabs {
   display: flex;
   overflow-x: auto;
-  background: rgba(0, 0, 0, 0.22);
+  background: #f3f4f6;
 }
 
 .tabs button {
@@ -440,7 +157,7 @@ button:disabled {
   padding: 20px 18px;
   border: none;
   background: transparent;
-  color: #cbd5e1;
+  color: #374151;
   font-weight: 800;
   cursor: pointer;
   border-bottom: 3px solid transparent;
@@ -452,14 +169,14 @@ button:disabled {
 }
 
 .tabs button:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
+  background: #e5e7eb;
+  color: #111827;
 }
 
 .tabs .active-tab {
-  color: #00f5d4;
-  border-bottom-color: #00f5d4;
-  background: rgba(0, 245, 212, 0.08);
+  color: #111827;
+  border-bottom-color: #111827;
+  background: #e5e7eb;
 }
 
 .form-panel {
@@ -472,7 +189,7 @@ button:disabled {
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid #d1d5db;
 }
 
 .section-icon {
@@ -482,29 +199,26 @@ button:disabled {
   place-items: center;
   font-size: 32px;
   border-radius: 20px;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 245, 212, 0.18),
-    rgba(255, 209, 102, 0.15)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
 }
 
 .section-heading h2 {
   font-size: 32px;
   font-weight: 900;
+  color: #111827;
 }
 
 .section-heading p {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 input,
 textarea,
 select {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: white !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #d1d5db !important;
   border-radius: 14px !important;
   padding: 15px !important;
   font-weight: 600;
@@ -512,7 +226,7 @@ select {
 
 input::placeholder,
 textarea::placeholder {
-  color: #94a3b8 !important;
+  color: #9ca3af !important;
 }
 
 select option {
@@ -525,8 +239,8 @@ button {
 
 .bg-blue-600,
 .primary-btn {
-  background: linear-gradient(90deg, #00f5d4, #ffd166) !important;
-  color: #08111f !important;
+  background: #111827 !important;
+  color: #ffffff !important;
   font-weight: 900 !important;
   border-radius: 14px !important;
   padding: 13px 20px !important;
@@ -537,7 +251,7 @@ button {
 .bg-blue-600:hover,
 .primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 245, 212, 0.25);
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.2);
 }
 
 .bg-red-500 {
@@ -554,9 +268,9 @@ button {
 .secondary-btn {
   padding: 13px 22px;
   border-radius: 14px;
-  color: white;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   font-weight: 800;
 }
 
@@ -568,8 +282,8 @@ button {
 .preview-btn {
   padding: 13px 22px;
   border-radius: 14px;
-  color: #08111f;
-  background: linear-gradient(90deg, #f472b6, #a78bfa, #22d3ee);
+  color: #ffffff;
+  background: #111827;
   border: none;
   font-weight: 900;
   transition: 0.3s;
@@ -577,7 +291,7 @@ button {
 
 .preview-btn:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(167, 139, 250, 0.35);
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.2);
 }
 
 .preview-card {
@@ -609,15 +323,13 @@ button {
   }
 }
 
-/* ============================= */
 /* LIVE PREVIEW MODAL */
-/* ============================= */
 
 .preview-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(2, 6, 23, 0.82);
+  background: rgba(17, 24, 39, 0.65);
   backdrop-filter: blur(14px);
   display: flex;
   justify-content: center;
@@ -630,13 +342,10 @@ button {
   width: min(1100px, 96vw);
   max-height: 92vh;
   overflow: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(34, 211, 238, 0.18), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.18), transparent 28%),
-    #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 24px;
-  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.25);
   animation: modalPop 0.35s ease;
 }
 
@@ -646,17 +355,17 @@ button {
   justify-content: space-between;
   gap: 18px;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid #d1d5db;
 }
 
 .preview-modal-header h2 {
   font-size: 26px;
   font-weight: 900;
-  color: white;
+  color: #111827;
 }
 
 .preview-modal-header p {
-  color: #94a3b8;
+  color: #6b7280;
   margin-top: 4px;
 }
 
@@ -670,8 +379,8 @@ button {
   padding: 11px 16px;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(90deg, #00f5d4, #ffd166);
-  color: #08111f;
+  background: #111827;
+  color: #ffffff;
   font-weight: 900;
 }
 
@@ -680,8 +389,8 @@ button {
   width: 42px;
   padding: 0 !important;
   border-radius: 50% !important;
-  background: rgba(255, 255, 255, 0.12) !important;
-  color: white !important;
+  background: #f3f4f6 !important;
+  color: #111827 !important;
   font-size: 18px;
 }
 
@@ -723,9 +432,7 @@ button {
   }
 }
 
-/* ============================= */
 /* PDF HIDDEN PREVIEW */
-/* ============================= */
 
 .pdf-hidden-preview {
   position: absolute;
@@ -750,7 +457,6 @@ button {
   overflow: visible;
 }
 
-/* Important for html2pdf: no faded output */
 .pdf-page,
 .pdf-page * {
   opacity: 1 !important;
@@ -760,164 +466,7 @@ button {
   transition: none !important;
 }
 
-/* ============================= */
-/* RESUME PREVIEW PDF-SAFE DESIGN */
-/* ============================= */
-
-/*
-  Important:
-  Your ResumePreview.jsx root div should have className="resume-preview".
-*/
-
-.resume-preview {
-  width: 794px;
-  min-height: 1123px;
-  background: #ffffff !important;
-  color: #111111 !important;
-  padding: 36px 46px;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.35;
-  opacity: 1 !important;
-  filter: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-}
-
-.resume-preview * {
-  opacity: 1 !important;
-  filter: none !important;
-  text-shadow: none !important;
-}
-
-.resume-preview h1 {
-  color: #111111 !important;
-  font-size: 30px;
-  font-weight: 800;
-  text-align: center;
-  margin: 0 0 6px;
-  text-transform: capitalize;
-}
-
-.resume-preview h2 {
-  color: #111827 !important;
-  font-size: 17px;
-  font-weight: 800;
-  margin: 22px 0 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #d1d5db;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.resume-preview h3 {
-  color: #111111 !important;
-  font-size: 15px;
-  font-weight: 700;
-  margin: 8px 0 4px;
-}
-
-.resume-preview p,
-.resume-preview li,
-.resume-preview span {
-  color: #222222 !important;
-  font-size: 13px;
-}
-
-.resume-preview a {
-  color: #2563eb !important;
-  text-decoration: underline;
-  font-size: 13px;
-}
-
-.resume-preview ul {
-  margin: 6px 0 10px 18px;
-  padding: 0;
-}
-
-.resume-preview li {
-  margin-bottom: 4px;
-}
-
-.resume-preview .resume-header,
-.resume-preview .header {
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.resume-preview .resume-contact,
-.resume-preview .contact-info {
-  text-align: center;
-  color: #374151 !important;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-.resume-preview section {
-  margin-bottom: 14px;
-}
-
-.resume-preview hr {
-  border: none;
-  border-top: 1px solid #d1d5db;
-  margin: 10px 0;
-}
-
-/* Prevent Tailwind dark/global styles from affecting PDF */
-.pdf-page .resume-preview,
-.pdf-page .resume-preview * {
-  color-scheme: light;
-}
-
-/* ============================= */
-/* RESPONSIVE */
-/* ============================= */
-
-@media (max-width: 900px) {
-  .builder-container {
-    width: 94%;
-  }
-
-  .hero-section {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .form-panel {
-    padding: 24px;
-  }
-
-  .section-heading h2 {
-    font-size: 24px;
-  }
-
-  .top-navbar {
-    padding: 14px 4%;
-  }
-
-  .nav-actions {
-    flex-wrap: wrap;
-  }
-}
-
-@media (max-width: 700px) {
-  .step-buttons {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .preview-modal-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .preview-modal-actions {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
-
-lrgnerresume preview 
+/* RESUME PREVIEW */
 
 .resume-preview {
   width: 794px;
@@ -1032,11 +581,11 @@ lrgnerresume preview
 .skills-header h3 {
   font-size: 28px;
   font-weight: 900;
-  color: white;
+  color: #111827;
 }
 
 .add-group-btn {
-  background: #000000;
+  background: #111827;
   color: white;
   border: none;
   padding: 14px 26px;
@@ -1046,8 +595,8 @@ lrgnerresume preview
 }
 
 .skill-group-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 16px;
   padding: 24px;
   margin-bottom: 18px;
@@ -1070,7 +619,7 @@ lrgnerresume preview
   margin-bottom: 8px;
   font-size: 17px;
   font-weight: 800;
-  color: #e5e7eb;
+  color: #111827;
 }
 
 .skill-input-box input {
@@ -1087,7 +636,51 @@ lrgnerresume preview
   font-weight: 900;
 }
 
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .builder-container {
+    width: 94%;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-panel {
+    padding: 24px;
+  }
+
+  .section-heading h2 {
+    font-size: 24px;
+  }
+
+  .top-navbar {
+    padding: 14px 4%;
+  }
+
+  .nav-actions {
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 700px) {
+  .step-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .preview-modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .preview-modal-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .skill-group-top {
     flex-direction: column;
   }

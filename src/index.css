@@ -1,1 +1,191 @@
-print here
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #111;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: #f4f6f8;
+}
+
+.top-navbar {
+  padding: 18px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  color: #111;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn,
+.download-small,
+.bg-blue-600 {
+  background: #2563eb !important;
+  color: white !important;
+  border: none !important;
+}
+
+.builder-container {
+  width: 85%;
+  margin: auto;
+  padding: 30px 0;
+}
+
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  color: #111;
+}
+
+.hero-section h1 span {
+  color: #2563eb;
+}
+
+.hero-section p,
+.progress-box p {
+  color: #555;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.progress-bar div {
+  height: 100%;
+  background: #2563eb;
+}
+
+.tab-card,
+.preview-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background: #f9fafb;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs button {
+  min-width: 170px;
+  padding: 16px;
+  background: transparent;
+  color: #333;
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+}
+
+.tabs .active-tab {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  background: #eff6ff;
+}
+
+.form-panel {
+  padding: 30px;
+}
+
+.section-heading {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.section-icon {
+  height: 55px;
+  width: 55px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  border-radius: 12px;
+  background: #eff6ff;
+}
+
+.section-heading h2 {
+  font-size: 28px;
+  color: #111;
+}
+
+.section-heading p {
+  color: #666;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  background: white !important;
+  color: #111 !important;
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  padding: 14px !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #777 !important;
+}
+
+.step-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.secondary-btn {
+  background: white;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+.preview-btn {
+  background: #111;
+  color: white;
+  border: none;
+}
+
+.orb {
+  display: none;
+}

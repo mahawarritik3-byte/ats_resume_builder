@@ -1,16 +1,26 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: #f5f5f5;
   color: #111;
 }
 
 .app-shell {
   min-height: 100vh;
-  background: #f4f6f8;
+  background: #f5f5f5;
+  color: #111;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.orb {
+  display: none;
 }
 
 .top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   padding: 18px 8%;
   display: flex;
   justify-content: space-between;
@@ -20,79 +30,81 @@ body {
 }
 
 .logo-text {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 900;
   color: #111;
+  background: none;
 }
 
-.nav-actions {
-  display: flex;
-  gap: 12px;
-}
-
-button {
-  padding: 10px 16px;
-  border-radius: 8px;
+.nav-actions button {
+  padding: 11px 18px;
+  border-radius: 12px;
   border: 1px solid #ccc;
-  background: white;
+  background: #ffffff;
   color: #111;
-  font-weight: 600;
-  cursor: pointer;
+  font-weight: 700;
 }
 
-.primary-btn,
 .download-small,
-.bg-blue-600 {
-  background: #2563eb !important;
+.bg-blue-600,
+.primary-btn {
+  background: #111 !important;
   color: white !important;
   border: none !important;
 }
 
 .builder-container {
-  width: 85%;
+  width: 84%;
   margin: auto;
-  padding: 30px 0;
+  position: relative;
+  z-index: 5;
+  padding: 35px 0;
 }
 
 .hero-section {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 
-.hero-section h1 {
-  font-size: 36px;
+.hero-section h1,
+.hero-section h1 span {
+  font-size: 40px;
+  font-weight: 900;
   color: #111;
 }
 
-.hero-section h1 span {
-  color: #2563eb;
+.hero-section p,
+.progress-box p,
+.section-heading p {
+  color: #555;
 }
 
-.hero-section p,
-.progress-box p {
-  color: #555;
+.progress-box strong {
+  color: #111;
 }
 
 .progress-bar {
   height: 8px;
   background: #ddd;
-  border-radius: 20px;
+  border-radius: 999px;
   overflow: hidden;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .progress-bar div {
   height: 100%;
-  background: #2563eb;
+  background: #111;
+  border-radius: 999px;
 }
 
 .tab-card,
 .preview-card {
-  background: white;
+  background: #ffffff;
   border: 1px solid #ddd;
-  border-radius: 12px;
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: none;
 }
@@ -100,67 +112,70 @@ button {
 .tabs {
   display: flex;
   overflow-x: auto;
-  background: #f9fafb;
-  border-bottom: 1px solid #ddd;
+  background: #f1f1f1;
 }
 
 .tabs button {
-  min-width: 170px;
-  padding: 16px;
+  min-width: 190px;
+  padding: 20px 18px;
+  border: none;
   background: transparent;
   color: #333;
-  border: none;
+  font-weight: 800;
+  cursor: pointer;
   border-bottom: 3px solid transparent;
-  border-radius: 0;
+}
+
+.tabs button:hover {
+  background: #e5e5e5;
+  color: #111;
 }
 
 .tabs .active-tab {
-  color: #2563eb;
-  border-bottom-color: #2563eb;
-  background: #eff6ff;
+  color: #111;
+  border-bottom-color: #111;
+  background: #e5e5e5;
 }
 
 .form-panel {
-  padding: 30px;
+  padding: 42px;
 }
 
 .section-heading {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   align-items: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #ddd;
 }
 
 .section-icon {
-  height: 55px;
-  width: 55px;
+  height: 70px;
+  width: 70px;
   display: grid;
   place-items: center;
-  font-size: 26px;
-  border-radius: 12px;
-  background: #eff6ff;
+  font-size: 32px;
+  border-radius: 20px;
+  background: #eeeeee;
+  border: 1px solid #ddd;
 }
 
 .section-heading h2 {
-  font-size: 28px;
+  font-size: 32px;
+  font-weight: 900;
   color: #111;
-}
-
-.section-heading p {
-  color: #666;
 }
 
 input,
 textarea,
 select {
-  width: 100%;
-  background: white !important;
+  background: #ffffff !important;
   color: #111 !important;
   border: 1px solid #ccc !important;
-  border-radius: 8px !important;
-  padding: 14px !important;
+  border-radius: 14px !important;
+  padding: 15px !important;
+  font-weight: 600;
 }
 
 input::placeholder,
@@ -168,24 +183,53 @@ textarea::placeholder {
   color: #777 !important;
 }
 
-.step-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
 .secondary-btn {
-  background: white;
+  padding: 13px 22px;
+  border-radius: 14px;
   color: #111;
+  background: #ffffff;
   border: 1px solid #ccc;
+  font-weight: 800;
 }
 
 .preview-btn {
-  background: #111;
+  padding: 13px 22px;
+  border-radius: 14px;
   color: white;
+  background: #111;
   border: none;
+  font-weight: 900;
 }
 
-.orb {
-  display: none;
+.preview-modal-overlay {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.preview-modal {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.preview-modal-header {
+  border-bottom: 1px solid #ddd;
+}
+
+.preview-modal-header h2 {
+  color: #111;
+}
+
+.preview-modal-header p {
+  color: #555;
+}
+
+.preview-modal-actions button {
+  background: #111;
+  color: white;
+}
+
+.close-preview-btn {
+  background: #eeeeee !important;
+  color: #111 !important;
 }
